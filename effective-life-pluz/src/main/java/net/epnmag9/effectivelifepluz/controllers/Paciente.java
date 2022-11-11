@@ -1,8 +1,9 @@
 package net.epnmag9.effectivelifepluz.controllers;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Paciente {
+public class Paciente implements Serializable{
     Identificador identificador;
     String nombre;
     Date fechaNacimiento;
@@ -23,4 +24,19 @@ public class Paciente {
         this.sexo = sexo;
         this.historialClinico = new HistorialClinico();
     }
+
+    
+
+    @Override
+    public String toString() {
+        return "Paciente [identificador=" + identificador + ", nombre=" + nombre + ", fechaNacimiento="
+                + fechaNacimiento + ", tipoSangre=" + tipoSangre + ", sexo=" + sexo +"]";
+    }
+
+
+
+    public HistorialClinico getHistorialClinico() {
+        return historialClinico;
+    }
+    
 }

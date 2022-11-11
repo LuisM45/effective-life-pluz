@@ -1,8 +1,9 @@
 package net.epnmag9.effectivelifepluz.controllers;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class EntradaDatosClinicos {
+public class EntradaDatosClinicos implements Serializable{
     double peso;
     double altura;
     double presionArterial;
@@ -25,4 +26,13 @@ public class EntradaDatosClinicos {
         this.fechaIngreso = fechaIngreso;
         this.observaciones = observaciones;
     }
+
+    @Override
+    public String toString() {
+        return "EntradaDatosClinicos [peso=" + peso + ", altura=" + altura + ", presionArterial=" + presionArterial
+                + ", temperatura=" + temperatura + ", fechaIngreso=" + fechaIngreso + ", observaciones=" + observaciones
+                + "]";
+    }
+
+    
 }

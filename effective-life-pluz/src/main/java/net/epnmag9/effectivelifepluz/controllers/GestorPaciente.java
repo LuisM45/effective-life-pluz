@@ -1,10 +1,11 @@
 package net.epnmag9.effectivelifepluz.controllers;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GestorPaciente {
+public class GestorPaciente implements Serializable{
     private final Map<Identificador,Paciente> pacientes;
 
     public GestorPaciente(){

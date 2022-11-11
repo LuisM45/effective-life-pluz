@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class CedulaEcuatorianaVal {
     public static boolean validate(String cedula){
-        Pattern.matches("\\d{10,10}", cedula);
+        if(!Pattern.matches("\\d{10,10}", cedula)) return false;
 
         int provinceCode = Integer.parseInt(cedula.substring(0,2));
         if(provinceCode>24) return false;

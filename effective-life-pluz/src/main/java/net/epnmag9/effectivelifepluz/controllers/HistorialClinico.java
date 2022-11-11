@@ -1,10 +1,11 @@
 package net.epnmag9.effectivelifepluz.controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HistorialClinico {
+public class HistorialClinico implements Serializable{
     List<EntradaDatosClinicos> entradasDatosClinicos;
 
     public HistorialClinico(){
@@ -30,5 +31,14 @@ public class HistorialClinico {
         entradasDatosClinicos.add(newEntradaDatosClinicos);
         return newEntradaDatosClinicos;
     }
+
+    @Override
+    public String toString() {
+        if(entradasDatosClinicos.isEmpty())
+            return "No existen registros";
+        Iterable<String> ics = ()->entradasDatosClinicos.stream().map(t->t.toString()).iterator();
+        return String.join("\n----------------------------------------\n",ics);
+    }
+    
 
 }
