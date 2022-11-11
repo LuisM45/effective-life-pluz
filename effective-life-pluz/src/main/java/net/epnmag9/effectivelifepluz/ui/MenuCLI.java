@@ -32,7 +32,10 @@ public class MenuCLI {
         public static void registrarPaciente(){
             Identificador identificador = cliIO.readIdentificadorUntilSuccess();
             Paciente paciente = gp.searchPaciente(identificador);
-                if(paciente!=null) cliIO.getOut().println("Ya existe un paciente con ese identificador. No es posible volverlo a registrar");
+                if(paciente!=null){
+                    cliIO.getOut().println("Ya existe un paciente con ese identificador. No es posible volverlo a registrar");
+                    return;
+                }
             String nombre = cliIO.readLineUntilTrue(NombresValidador::validate,"Ingrese el nombre: ",null,"Ingrese el nombre completo",null);
             Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
             String tipoSangre = cliIO.nextLine("Ingrese el tipo de sangre: ");
