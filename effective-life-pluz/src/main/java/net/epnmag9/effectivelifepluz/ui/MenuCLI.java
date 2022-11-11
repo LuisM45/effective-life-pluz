@@ -1,7 +1,5 @@
 package net.epnmag9.effectivelifepluz.ui;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import net.epnmag9.effectivelifepluz.controllers.Paciente;
@@ -32,7 +30,7 @@ public class MenuCLI {
         "6: Mostrar historial del paciente\n";
 
         public static void registrarPaciente(){
-            Identificador identificador = readIdentificador();
+            Identificador identificador = cliIO.readIdentificadorUntilSuccess();
             String nombre = cliIO.readLineUntilTrue(NombresValidador::validate,"Ingrese el nombre: ",null,"Ingrese el nombre completo",null);
             Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento: ", dateFormat, null, genericErrorMsg);
             String tipoSangre = cliIO.nextLine("Ingrese el tipo de sangre: ");
@@ -45,7 +43,7 @@ public class MenuCLI {
 
     public static void seleccionarPaciente(){
         cliIO.getOut().print("Ingrese el identificador del paciente: ");
-        Identificador identificador = readIdentificador();
+        Identificador identificador = cliIO.readIdentificadorUntilSuccess();
         pacienteSeleccionado = gp.searchPaciente(identificador);
         if (pacienteSeleccionado == null) {
             cliIO.getOut().println("No existe paciente con el identificador especificado. Desea registrarlo (y/N)?");
@@ -95,13 +93,6 @@ public class MenuCLI {
         System.exit(0);
     }
 
-    private static Identificador readIdentificador(){
-        cliIO.getOut().println("Seleccione el tipo de identificador a ocupar: ");
-        String type = cliIO.chooseFrom(Identificador.recognizedIdentifiersView.keySet());
-        cliIO.getOut().println(String.format("Ingrese el valor de %s: ", type));
-        String value = cliIO.getIn().nextLine();
-        return Identificador.buildIdentificador(value, type);
-    }
     public static void main(String[] args) {
         while(true){
             System.out.println(menu);

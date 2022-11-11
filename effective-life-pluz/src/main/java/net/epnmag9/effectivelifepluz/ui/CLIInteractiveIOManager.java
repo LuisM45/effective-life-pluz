@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import net.epnmag9.effectivelifepluz.controllers.Identificador;
+
 public class CLIInteractiveIOManager {
     private Scanner scanner;
     private PrintStream printStream;
@@ -67,6 +69,15 @@ public class CLIInteractiveIOManager {
 
     }
 
+    public Identificador readIdentificadorUntilSuccess(){
+        printStream.println("Seleccione el tipo de identificador a ocupar: ");
+        String type = chooseFromUntilSuccess(Identificador.recognizedIdentifiersView.keySet(),"Intente de nuevo");
+        printStream.println();
+
+        Function<String,Identificador> parseFun = t->Identificador.buildIdentificador(t, type);
+        return readLineAndParseUntilSuccess(parseFun,String.format("Ingrese el valor de %s: ", type),null,"Entrada no válida");
+    }
+
     public Double readDoubleUntilSuccess(String beginMessage, String successMessage, String errorMessage){
         return readLineAndParseUntilSuccess(Double::valueOf,beginMessage, successMessage, errorMessage);
     }
@@ -84,6 +95,18 @@ public class CLIInteractiveIOManager {
             }
         };
         return readLineAndParseUntilSuccess(fun, beginMessage, successMessage, errorMessage);
+    }
+
+    public <E> E chooseFromUntilSuccess(Iterable<E> iterable,String errorMessage){
+        while(true){
+            E returnVal = chooseFrom(iterable);
+            if (returnVal == null) {
+                if(errorMessage != null)
+                    printStream.println(errorMessage);
+                    continue;
+            }
+            return returnVal;
+        }
     }
 
     public <E> E chooseFrom(Iterable<E> iterable){
