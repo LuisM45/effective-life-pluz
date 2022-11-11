@@ -20,13 +20,14 @@ public class CedulaEcuatorianaVal {
             digitAccumulator += digitValue;
             parity = (parity+1)%2;
         }
-        int verifyingDigit = digitAccumulator%10;
-        if (verifyingDigit != Character.getNumericValue(cedula.charAt(9))) return false;
+        int lastDigit =Character.getNumericValue(cedula.charAt(9));
+        int verifyingDigit = (digitAccumulator+lastDigit )%10;
+        if (verifyingDigit!=0) return false;
 
         return true;
     }
 
     public static void main(String[] args) {
-        System.out.println(validate("1728086040"));
+        System.out.println(validate("1752511939"));
     }
 }
