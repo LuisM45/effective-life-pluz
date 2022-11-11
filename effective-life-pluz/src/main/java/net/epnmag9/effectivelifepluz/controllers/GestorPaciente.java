@@ -12,6 +12,17 @@ public class GestorPaciente implements Serializable{
         pacientes = new HashMap<>();
     }
 
+        public Paciente registerPacienteIfNotPresent(
+        Identificador identificador,
+        String nombre,
+        Date fechaNacimiento,
+        String tipoSangre,
+        String sexo){
+            Paciente paciente = searchPaciente(identificador);
+            if(paciente!=null) return null;
+            return registerPaciente(identificador, nombre, fechaNacimiento, tipoSangre, sexo);
+    }
+    
     public Paciente registerPaciente(
         Identificador identificador,
         String nombre,

@@ -12,7 +12,7 @@ public class MenuCLI {
     private static String filename = "gestorData.dump";
     private static String basePath = ".";
     private static String dateFormat = "yyyy-MM-dd";
-    private static String genericErrorMsg = "Intente de nuevo";
+    private static String genericErrorMsg = "Intente de nuevo: ";
     private static Scanner scn = new Scanner(System.in);
     private static GestorPacienteCrud gpC = new GestorPacienteCrud(basePath);
     private static GestorPaciente gp = gpC.read(filename);
@@ -31,11 +31,13 @@ public class MenuCLI {
 
         public static void registrarPaciente(){
             Identificador identificador = cliIO.readIdentificadorUntilSuccess();
+            Paciente paciente = gp.searchPaciente(identificador);
+                if(paciente!=null) cliIO.getOut().println("Ya existe un paciente con ese identificador. No es posible volverlo a registrar");
             String nombre = cliIO.readLineUntilTrue(NombresValidador::validate,"Ingrese el nombre: ",null,"Ingrese el nombre completo",null);
-            Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento: ", dateFormat, null, genericErrorMsg);
+            Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
             String tipoSangre = cliIO.nextLine("Ingrese el tipo de sangre: ");
             String sexo = cliIO.nextLine("Ingrese el sexo: ");
-            Paciente newPaciente = gp.registerPaciente(identificador, nombre, fechaNacimiento, tipoSangre, sexo);
+            Paciente newPaciente = gp.registerPacienteIfNotPresent(identificador, nombre, fechaNacimiento, tipoSangre, sexo);
             pacienteSeleccionado = newPaciente;
             cliIO.getOut().println("Paciente registrado y seleccionado.\n");
             gpC.update(filename, gp);
@@ -67,7 +69,7 @@ public class MenuCLI {
         double altura = cliIO.readDoubleUntilSuccess("Ingrese la altura(m): ", null, genericErrorMsg);;
         double presionArterial = cliIO.readDoubleUntilSuccess("Ingrese la presion arterial(mmHg): ", null, genericErrorMsg);;
         double temperatura = cliIO.readDoubleUntilSuccess("Ingrese la temperatura(C): ", null, genericErrorMsg);
-        Date fechaIngreso = cliIO.readDateUntilSuccess("Ingrese la fecha de ingreso(yyyy-MM-dd): ", dateFormat, null, genericErrorMsg);
+        Date fechaIngreso = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
         String observaciones = cliIO.nextLine("Ingrese observaciones adicionales: ");
         gp.registerHistorial(pacienteSeleccionado, peso, altura, presionArterial, temperatura, fechaIngreso, observaciones);
         gpC.update(filename, gp);
