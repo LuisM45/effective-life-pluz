@@ -66,8 +66,8 @@ public class CLIInteractiveIOManager {
     }
 
     public Identificador readIdentificadorUntilSuccess(){
-        printStream.println("Seleccione el tipo de identificador a ocupar: ");
-        String type = chooseFromUntilSuccess(Identificador.recognizedIdentifiersView.keySet(),"Intente de nuevo");
+        printStream.println();
+        String type = chooseFromUntilSuccess(Identificador.recognizedIdentifiersView.keySet(),"Seleccione el tipo de identificador a ocupar: ",null,"Intente de nuevo: ");
         printStream.println();
 
         Function<String,Identificador> parseFun = t->Identificador.buildIdentificador(t, type);
@@ -95,14 +95,16 @@ public class CLIInteractiveIOManager {
         }
     }
 
-    public <E> E chooseFromUntilSuccess(Iterable<E> iterable,String errorMessage){
+    public <E> E chooseFromUntilSuccess(Iterable<E> iterable,String beginMessage,String successMessage, String errorMessage){
+        printNNull(beginMessage);
         while(true){
             E returnVal = chooseFrom(iterable);
             if (returnVal == null) {
                 if(errorMessage != null)
-                    printStream.println(errorMessage);
-                    continue;
+                printStream.println(errorMessage);
+                continue;
             }
+            printNNull(successMessage);
             return returnVal;
         }
     }
