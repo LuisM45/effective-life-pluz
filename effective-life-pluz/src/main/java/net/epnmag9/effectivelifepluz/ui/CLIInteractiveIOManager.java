@@ -83,14 +83,16 @@ public class CLIInteractiveIOManager {
     }
 
     public Date readDateUntilSuccess(String beginMessage, String format,String successMessage, String errorMessage){
-        Function<String,Date> fun = t->{
-            try {
-                return (new SimpleDateFormat(format).parse(t));
-            } catch (ParseException e) {
-                throw new RuntimeException();
-            }
-        };
-        return readLineAndParseUntilSuccess(fun, beginMessage, successMessage, errorMessage);
+        Function<String,Date> parseFunction = (s)->parseDate(s,format);
+        return readLineAndParseUntilSuccess(parseFunction, beginMessage, successMessage, errorMessage);
+    }
+
+    private Date parseDate(String string, String format){
+        try {
+            return (new SimpleDateFormat(format).parse(string));
+        } catch (ParseException e) {
+            throw new RuntimeException(e.getCause());
+        }
     }
 
     public <E> E chooseFromUntilSuccess(Iterable<E> iterable,String errorMessage){
