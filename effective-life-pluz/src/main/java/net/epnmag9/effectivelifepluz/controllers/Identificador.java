@@ -17,7 +17,7 @@ public abstract class Identificador implements Serializable{
     }
 
     public static Class<?> identify(String valor){
-        if(Cedula.validar(valor)) return Cedula.class;
+        if(Cedula.validate(valor)) return Cedula.class;
         return null;
     }
 
