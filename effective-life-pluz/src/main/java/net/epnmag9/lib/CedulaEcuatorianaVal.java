@@ -9,19 +9,25 @@ public class CedulaEcuatorianaVal {
         int provinceCode = Integer.parseInt(cedula.substring(0,2));
         if(provinceCode>24) return false;
         
-        int thirdDigit = Integer.parseInt(cedula.substring(2,3));
-        if(thirdDigit>5) return false;
+        int justSix = Integer.parseInt(cedula.substring(2,3));
+        if(justSix>5) return false;
 
         int digitAccumulator = 0;
-        boolean isOddPlaced = true;
-        for(char c: cedula.toCharArray()){
-            int digitValue = Character.getNumericValue(c);
-            if (isOddPlaced) digitValue *= 2;
+        int parity = 1;
+        for(char c: cedula.substring(0, 9).toCharArray()){
+            int digitValue = Character.getNumericValue(c)*(1+parity);
             if (digitValue>=10) digitValue -= 9;
             digitAccumulator += digitValue;
+            parity = (parity+1)%2;
         }
-        digitAccumulator %= 10;
+        int lastDigit =Character.getNumericValue(cedula.charAt(9));
+        int verifyingDigit = (digitAccumulator+lastDigit )%10;
+        if (verifyingDigit!=0) return false;
 
-        return digitAccumulator==0;
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(validate("1752511939"));
     }
 }
