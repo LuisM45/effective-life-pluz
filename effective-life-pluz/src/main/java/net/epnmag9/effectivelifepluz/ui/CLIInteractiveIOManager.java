@@ -52,9 +52,8 @@ public class CLIInteractiveIOManager {
         printNNull(beginMessage);
         
         while(true){
-            String input = scanner.nextLine();
             try {
-                E returnVal = parseFunction.apply(input);
+                E returnVal = scanner.nextLine().transform(parseFunction);
                 printNNull(successMessage);
                 
                 return returnVal;
