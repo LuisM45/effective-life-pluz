@@ -9,11 +9,11 @@ import java.util.function.Function;
 public abstract class Identificador implements Serializable{
     protected String valor;
     private static Map<String,Function<String,Identificador>> recognizedIdentifiers;
-    public final static Map<String,Function<String,Identificador>> recognizedIdentifiersView;
+    public final static Map<String,Function<String,Identificador>> builders;
     static{
         recognizedIdentifiers = new HashMap<>();
         recognizedIdentifiers.put("Cédula", Cedula::valueOf);
-        recognizedIdentifiersView = Collections.unmodifiableMap(recognizedIdentifiers);
+        builders = Collections.unmodifiableMap(recognizedIdentifiers);
     }
 
     public static Class<?> identify(String valor){

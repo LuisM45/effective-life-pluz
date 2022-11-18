@@ -50,12 +50,10 @@ public class CLIInteractiveIOManager {
     }
 
     public Identificador readIdentificadorUntilSuccess(){
-        printStream.println();
-        String type = chooseFromUntilSuccess(Identificador.recognizedIdentifiersView.keySet(),"Seleccione el tipo de identificador a ocupar: ",null,"Intente de nuevo: ");
-        printStream.println();
+        String type = chooseFromUntilSuccess(Identificador.builders.keySet(),"Seleccione el tipo de identificador a ocupar: ",null,"Intente de nuevo: ");
 
-        Function<String,Identificador> parseFun = t->Identificador.buildIdentificador(t, type);
-        return readLineAndParseUntilSuccess(parseFun,String.format("Ingrese el valor de %s: ", type),null,"Entrada no válida, intente de nuevo:");
+        Function<String,Identificador> builder = Identificador.builders.get(type);
+        return readLineAndParseUntilSuccess(builder,String.format("Ingrese el valor de %s: ", type),null,"Entrada no válida, intente de nuevo:");
     }
 
     public Double readDoubleUntilSuccess(String beginMessage, String successMessage, String errorMessage){
