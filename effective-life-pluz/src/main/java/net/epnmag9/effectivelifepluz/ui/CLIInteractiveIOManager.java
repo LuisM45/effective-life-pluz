@@ -12,6 +12,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import net.epnmag9.effectivelifepluz.controllers.Identificador;
+import net.epnmag9.lib.NombresValidador;
 
 public class CLIInteractiveIOManager {
     private Scanner scanner;
@@ -31,23 +32,6 @@ public class CLIInteractiveIOManager {
         printStream.print(o.toString());
 }
 
-    public String readLineUntilTrue(Predicate<String> predicate, String beginMessage, String trueMessage, String falseMessage, String errorMessage){
-        printNNull(beginMessage);
-        while(true){
-            String input = scanner.nextLine();
-            try {
-                boolean result = predicate.test(input);
-                if(result){
-                    printNNull(trueMessage);
-                        return input;
-                }
-                printNNull(falseMessage);
-            } catch (Exception e) {
-                printNNull(errorMessage);
-            }
-        }
-
-    }
 
     public <E> E readLineAndParseUntilSuccess(Function<String,E> parseFunction,String beginMessage, String successMessage, String errorMessage){
         printNNull(beginMessage);
@@ -84,6 +68,15 @@ public class CLIInteractiveIOManager {
 
     public Date readDateUntilSuccess(String beginMessage, String format,String successMessage, String errorMessage){
         Function<String,Date> parseFunction = (s)->parseDate(s,format);
+        return readLineAndParseUntilSuccess(parseFunction, beginMessage, successMessage, errorMessage);
+    }
+
+    public String readNameUntilSuccess(String beginMessage, String format,String successMessage, String errorMessage){
+        Function<String,String> parseFunction = (s)->{
+            if(!NombresValidador.validate(s))
+                throw new RuntimeException("Not valid format");
+            return s;
+        };
         return readLineAndParseUntilSuccess(parseFunction, beginMessage, successMessage, errorMessage);
     }
 

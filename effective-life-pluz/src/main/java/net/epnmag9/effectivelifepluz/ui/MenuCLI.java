@@ -36,7 +36,7 @@ public class MenuCLI {
                     cliIO.getOut().println("Ya existe un paciente con ese identificador. No es posible volverlo a registrar");
                     return;
                 }
-            String nombre = cliIO.readLineUntilTrue(NombresValidador::validate,"Ingrese el nombre: ",null,"Ingrese el nombre completo",null);
+            String nombre = cliIO.readNameUntilSuccess("Ingrese el nombre: ",null,"Ingrese el nombre completo",null);
             Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
             String tipoSangre = cliIO.nextLine("Ingrese el tipo de sangre: ");
             String sexo = cliIO.nextLine("Ingrese el sexo: ");
