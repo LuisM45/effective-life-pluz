@@ -21,49 +21,45 @@ public class CLIInteractiveIOManager {
     }
     
     public String nextLine(String message){
-        printStream.print(message);
+        printNNull(message);
         return scanner.nextLine();
     }
 
+    public void printNNull(Object o){
+        if(o == null) return;
+        printStream.print(o.toString());
+}
+
     public String readLineUntilTrue(Predicate<String> predicate, String beginMessage, String trueMessage, String falseMessage, String errorMessage){
-        if(beginMessage!=null){
-            printStream.print(beginMessage);
-        }
+        printNNull(beginMessage);
         while(true){
             String input = scanner.nextLine();
             try {
                 boolean result = predicate.test(input);
                 if(result){
-                    if(trueMessage!=null)
-                        printStream.print(trueMessage);
+                    printNNull(trueMessage);
                         return input;
                 }
-                if(falseMessage!=null)
-                    printStream.print(falseMessage);
+                printNNull(falseMessage);
             } catch (Exception e) {
-                if (errorMessage!=null)
-                    printStream.print(errorMessage);
+                printNNull(errorMessage);
             }
         }
 
     }
 
     public <E> E readLineAndParseUntilSuccess(Function<String,E> parseFunction,String beginMessage, String successMessage, String errorMessage){
-        if(beginMessage!=null){
-            printStream.print(beginMessage);
-        }
+        printNNull(beginMessage);
+        
         while(true){
             String input = scanner.nextLine();
             try {
                 E returnVal = parseFunction.apply(input);
-                if(successMessage!=null){
-                    printStream.print(successMessage);
-                }
+                printNNull(successMessage);
+                
                 return returnVal;
             } catch (Exception e) {
-                if (errorMessage!=null){
-                    printStream.print(errorMessage);
-                }
+                printNNull(errorMessage);
             }
         }
 
