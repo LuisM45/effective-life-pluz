@@ -55,7 +55,7 @@ public class CLIInteractiveIOManager {
         printStream.println();
 
         Function<String,Identificador> parseFun = t->Identificador.buildIdentificador(t, type);
-        return readLineAndParseUntilSuccess(parseFun,String.format("Ingrese el valor de %s: ", type),null,"Entrada no válida");
+        return readLineAndParseUntilSuccess(parseFun,String.format("Ingrese el valor de %s: ", type),null,"Entrada no válida, intente de nuevo:");
     }
 
     public Double readDoubleUntilSuccess(String beginMessage, String successMessage, String errorMessage){
@@ -71,7 +71,7 @@ public class CLIInteractiveIOManager {
         return readLineAndParseUntilSuccess(parseFunction, beginMessage, successMessage, errorMessage);
     }
 
-    public String readNameUntilSuccess(String beginMessage, String format,String successMessage, String errorMessage){
+    public String readNameUntilSuccess(String beginMessage, String successMessage, String errorMessage){
         Function<String,String> parseFunction = (s)->{
             if(!NombresValidador.validate(s))
                 throw new RuntimeException("Not valid format");

@@ -36,7 +36,7 @@ public class MenuCLI {
                     cliIO.getOut().println("Ya existe un paciente con ese identificador. No es posible volverlo a registrar");
                     return;
                 }
-            String nombre = cliIO.readNameUntilSuccess("Ingrese el nombre: ",null,"Ingrese el nombre completo",null);
+            String nombre = cliIO.readNameUntilSuccess("Ingrese el nombre: ",null,"Ingrese el nombre completo: ");
             Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
             String tipoSangre = cliIO.nextLine("Ingrese el tipo de sangre: ");
             String sexo = cliIO.nextLine("Ingrese el sexo: ");
@@ -51,7 +51,7 @@ public class MenuCLI {
         Identificador identificador = cliIO.readIdentificadorUntilSuccess();
         pacienteSeleccionado = gp.searchPaciente(identificador);
         if (pacienteSeleccionado == null) {
-            cliIO.getOut().println("No existe paciente con el identificador especificado. Desea registrarlo (y/N)?");
+            cliIO.getOut().println("No existe paciente con el identificador especificado. Desea registrarlo (y/N)?: ");
             if(scn.nextLine().equalsIgnoreCase("Y"))
                 registrarPaciente();
         }else{
