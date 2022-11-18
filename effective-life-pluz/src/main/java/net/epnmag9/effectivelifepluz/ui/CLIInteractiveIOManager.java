@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -108,13 +109,9 @@ public class CLIInteractiveIOManager {
 
     public <E> E chooseFrom(Iterable<E> iterable){
         LinkedList<E> linkedList = new LinkedList<>();
-        int acc = 0;
-        for(E e: iterable){
-            acc += 1;
+        for(E e: iterable) 
             linkedList.add(e);
-            printStream.print(String.valueOf(acc)+": ");
-            printStream.println(e);
-        }
+        printStream.println(getListString(linkedList));
         try{
             int chosen = Integer.parseInt(scanner.nextLine());
             return linkedList.get(chosen-1);
@@ -123,6 +120,16 @@ public class CLIInteractiveIOManager {
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
+    }
+
+    public String getListString(List<?> list){
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for(Object o: list){
+            index += 1;
+            sb.append(String.valueOf(index)).append(": ").append(o.toString());
+        }
+        return sb.toString();
     }
 
     public Scanner getIn() {
