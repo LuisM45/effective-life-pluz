@@ -12,7 +12,7 @@ public abstract class Identificador implements Serializable{
     public final static Map<String,Function<String,Identificador>> recognizedIdentifiersView;
     static{
         recognizedIdentifiers = new HashMap<>();
-        recognizedIdentifiers.put("Cédula", (v)-> new Cedula(v));
+        recognizedIdentifiers.put("Cédula", Cedula::valueOf);
         recognizedIdentifiersView = Collections.unmodifiableMap(recognizedIdentifiers);
     }
 

@@ -12,7 +12,9 @@ public class Cedula extends Identificador{
         this.valor = cedula;
     }
 
-
+    public static Cedula valueOf(String cedula){
+        return new Cedula(cedula);
+    }
 
     public static boolean validate(String cedula){
         return checkFormatAndLength(cedula)
