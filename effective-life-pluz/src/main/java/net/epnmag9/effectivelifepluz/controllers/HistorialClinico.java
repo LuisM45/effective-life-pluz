@@ -3,6 +3,7 @@ package net.epnmag9.effectivelifepluz.controllers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class HistorialClinico implements Serializable{
@@ -32,6 +33,15 @@ public class HistorialClinico implements Serializable{
         return newEntradaDatosClinicos;
     }
 
+    public List<EntradaDatosClinicos> getEntradaInBetween(Date startDate, Date endDate){
+        List<EntradaDatosClinicos> entradasValidas = new LinkedList<>();
+//        for(EntradaDatosClinicos entrada: entradasDatosClinicos){
+//            if(startDate.compareTo(endDate)
+//            entrada.fechaIngreso
+//        }
+        return entradasValidas;
+    }
+    
     @Override
     public String toString() {
         if(entradasDatosClinicos.isEmpty())
