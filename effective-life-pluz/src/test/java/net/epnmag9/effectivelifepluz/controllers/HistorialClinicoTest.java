@@ -36,6 +36,11 @@ public class HistorialClinicoTest {
         assertArrayEquals(historialClinico.entradasDatosClinicos.toArray(), historialClinico.getEntradaInBetween(null,null).toArray());
     }
     
+    @Test
+    public void given_no_dates_when_not_same_list_then_ok(){
+        assertNotSame(historialClinico.entradasDatosClinicos, historialClinico.getEntradaInBetween(null,null));
+    }
+    
     
     @BeforeClass
     public static void setUpClass() throws ParseException {
