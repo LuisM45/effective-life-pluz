@@ -50,7 +50,12 @@ public class HistorialClinicoTest {
         assertEquals(resultList.size(), 3);
     }
     
-    
+    @Test
+    public void given_endDate_when_accurate_list_then_ok() throws ParseException{
+        Date endDate = (new SimpleDateFormat("yyyyMMdd").parse("20020101"));
+        List<EntradaDatosClinicos> resultList = historialClinico.getEntradaInBetween(null , endDate);
+        assertEquals(resultList.size(), 3);
+    }
     
     @BeforeClass
     public static void setUpClass() throws ParseException {
