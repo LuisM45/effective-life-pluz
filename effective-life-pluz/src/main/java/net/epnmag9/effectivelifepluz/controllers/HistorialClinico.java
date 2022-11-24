@@ -42,6 +42,12 @@ public class HistorialClinico implements Serializable{
                     entradasValidas.add(edc);
             return entradasValidas;
         }
+        if(startDate == null && endDate != null){
+            for(EntradaDatosClinicos edc: entradasDatosClinicos)
+                if(endDate.compareTo(edc.fechaIngreso)>=0)
+                    entradasValidas.add(edc);
+            return entradasValidas;
+        }
         if(startDate.compareTo(endDate)>0) throw new IllegalArgumentException();
 //        for(EntradaDatosClinicos entrada: entradasDatosClinicos){
 //            if(startDate.compareTo(endDate)
