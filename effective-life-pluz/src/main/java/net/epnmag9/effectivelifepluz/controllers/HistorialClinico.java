@@ -35,6 +35,7 @@ public class HistorialClinico implements Serializable{
 
     public List<EntradaDatosClinicos> getEntradaInBetween(Date startDate, Date endDate){
         List<EntradaDatosClinicos> entradasValidas = new LinkedList<>();
+        if(startDate.compareTo(endDate)>0) throw new IllegalArgumentException();
 //        for(EntradaDatosClinicos entrada: entradasDatosClinicos){
 //            if(startDate.compareTo(endDate)
 //            entrada.fechaIngreso
