@@ -8,6 +8,8 @@ package net.epnmag9.effectivelifepluz.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,6 +42,14 @@ public class HistorialClinicoTest {
     public void given_no_dates_when_not_same_list_then_ok(){
         assertNotSame(historialClinico.entradasDatosClinicos, historialClinico.getEntradaInBetween(null,null));
     }
+    
+    @Test
+    public void given_startDate_when_accurate_list_then_ok() throws ParseException{
+        Date startDate = (new SimpleDateFormat("yyyyMMdd").parse("20010101"));
+        List<EntradaDatosClinicos> resultList = historialClinico.getEntradaInBetween(startDate, null);
+        assertEquals(resultList.size(), 3);
+    }
+    
     
     
     @BeforeClass
