@@ -30,6 +30,13 @@ public class HistorialClinicoTest {
         Date endDate = (new SimpleDateFormat("yyyyMMdd").parse("20000102"));
         historialClinico.getEntradaInBetween(endDate,startDate);
     }
+    
+    @Test
+    public void given_no_dates_when_endDate_before_startDate_then_ok() throws ParseException {
+        assertArrayEquals(historialClinico.entradasDatosClinicos.toArray(), historialClinico.getEntradaInBetween(null,null).toArray());
+    }
+    
+    
     @BeforeClass
     public static void setUpClass() throws ParseException {
         historialClinico = new HistorialClinico();
