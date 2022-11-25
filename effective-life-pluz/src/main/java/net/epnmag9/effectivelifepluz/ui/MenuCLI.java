@@ -1,7 +1,9 @@
 package net.epnmag9.effectivelifepluz.ui;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
+import net.epnmag9.effectivelifepluz.controllers.EntradaDatosClinicos;
 import net.epnmag9.effectivelifepluz.controllers.Paciente;
 import net.epnmag9.effectivelifepluz.controllers.GestorPaciente;
 import net.epnmag9.effectivelifepluz.controllers.Identificador;
@@ -19,6 +21,7 @@ public class MenuCLI {
     private static CLIInteractiveIOManager cliIO = new CLIInteractiveIOManager(System.in, System.out);
 
     private static Paciente pacienteSeleccionado;
+    private static List<EntradaDatosClinicos> entradasSeleccionadas;
 
     private static String menu =
         "0: Salir\n"+
@@ -42,6 +45,7 @@ public class MenuCLI {
             String sexo = cliIO.nextLine("Ingrese el sexo: ");
             Paciente newPaciente = gp.registerPacienteIfNotPresent(identificador, nombre, fechaNacimiento, tipoSangre, sexo);
             pacienteSeleccionado = newPaciente;
+            entradasSeleccionadas = null;
             cliIO.getOut().println("Paciente registrado y seleccionado.\n");
             gpC.update(filename, gp);
         }
@@ -56,11 +60,21 @@ public class MenuCLI {
                 registrarPaciente();
         }else{
             cliIO.getOut().println("Paciente seleccionado.");
+            entradasSeleccionadas = null;
+
         }
         
     }
     public static void seleccionarEntrada(){
-        System.out.println("Deprecated?");
+        if(pacienteSeleccionado == null){
+            if(pacienteSeleccionado==null){
+            System.out.println("No existe paciente seleccionado, seleccione uno.");
+            return;
+            }
+        }
+        Date fechaInicio = cliIO.readDateUntilSuccess("Ingrese la fecha desde cual seleccionar ("+dateFormat+"):", dateFormat, null, genericErrorMsg);
+        Date fechaFin = cliIO.readDateUntilSuccess("Ingrese la fecha hasta cual seleccionar ("+dateFormat+"):", dateFormat, null, genericErrorMsg);
+        entradasSeleccionadas = pacienteSeleccionado.getHistorialClinico().getEntradaInBetween(fechaInicio, fechaFin);
     }
 
     public static void registrarEntrada(){
@@ -88,10 +102,15 @@ public class MenuCLI {
     }
 
     public static void mostrarEntradas(){
-        if (pacienteSeleccionado != null) {
-            System.out.println(pacienteSeleccionado.getHistorialClinico().toString());
-        }else{
-            System.out.println("No se ha seleccionado paciente");
+        if (pacienteSeleccionado == null) {
+            cliIO.getOut().println("No se ha seleccionado paciente");
+            return;
+        }
+        if (entradasSeleccionadas == null || entradasSeleccionadas.size() <= 0) {
+            cliIO.getOut().println("No se ha seleccionado entradas");            
+        }
+        for(EntradaDatosClinicos edc: entradasSeleccionadas){
+            cliIO.getOut().println(edc.toString());
         }
     }
 
