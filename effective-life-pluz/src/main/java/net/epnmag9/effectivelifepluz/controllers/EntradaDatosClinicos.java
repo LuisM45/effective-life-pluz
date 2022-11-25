@@ -21,6 +21,9 @@ public class EntradaDatosClinicos implements Serializable{
         Date fechaIngreso,
         String observaciones
     ){
+        // Validar peso
+        if(peso <= 0) throw new IllegalArgumentException("El peso no puede ser negativo ni igual a cero");
+
         this.peso = peso;
         this.altura = altura;
         this.presionArterialSis = presionArterialSis;
