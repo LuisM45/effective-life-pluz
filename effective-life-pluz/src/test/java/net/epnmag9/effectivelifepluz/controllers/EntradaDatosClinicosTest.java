@@ -26,6 +26,12 @@ public class EntradaDatosClinicosTest {
         EntradaDatosClinicos edc = new EntradaDatosClinicos(-200, 170, 120, 80, 37.5, d, "");
     }
     
+    @Test(expected = IllegalArgumentException.class)
+    public void given_constructor_when_negative_height_then_exception() throws ParseException{
+        Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
+        EntradaDatosClinicos edc = new EntradaDatosClinicos(100, -1, 120, 80, 37.5, d, "");
+    }
+    
 
     @BeforeClass
     public static void setUpClass() {
