@@ -27,6 +27,8 @@ public class EntradaDatosClinicos implements Serializable{
 
         // Validar presion
         if(presionArterialSis <= presionArterialDia) throw new IllegalArgumentException("La presion sistólica no puede ser mayor a la diastólica");
+        if(presionArterialSis <= 0) throw new IllegalArgumentException("La presion sistólica no puede ser menor ni igual a cero");
+        if(presionArterialDia <= 0) throw new IllegalArgumentException("La presion diastólica no puede ser menor ni igual a cero");
         
         
         this.peso = peso;
