@@ -44,12 +44,13 @@ public class GestorPaciente implements Serializable{
         Paciente paciente,
         double peso,
         double altura,
-        double presionArterial,
+        double presionArterialSis,
+        double presionArterialDia,
         double temperatura,
         Date fechaIngreso,
         String observaciones
         ){
-            return paciente.historialClinico.registerEntradaDatosClinicos(peso, altura, presionArterial, temperatura, fechaIngreso, observaciones);
+            return paciente.historialClinico.registerEntradaDatosClinicos(peso, altura, presionArterialSis, presionArterialDia, temperatura, fechaIngreso, observaciones);
             
             
     }

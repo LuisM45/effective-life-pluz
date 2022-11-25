@@ -70,11 +70,12 @@ public class MenuCLI {
         }
         double peso = cliIO.readDoubleUntilSuccess("Ingrese el peso(Kg): ", null, genericErrorMsg);
         double altura = cliIO.readDoubleUntilSuccess("Ingrese la altura(m): ", null, genericErrorMsg);;
-        double presionArterial = cliIO.readDoubleUntilSuccess("Ingrese la presion arterial(mmHg): ", null, genericErrorMsg);;
+        double presionArterialSis = cliIO.readDoubleUntilSuccess("Ingrese la presion arterial sistólica(mmHg): ", null, genericErrorMsg);;
+        double presionArterialDia = cliIO.readDoubleUntilSuccess("Ingrese la presion arterial diastólica(mmHg): ", null, genericErrorMsg);;
         double temperatura = cliIO.readDoubleUntilSuccess("Ingrese la temperatura(C): ", null, genericErrorMsg);
         Date fechaIngreso = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
         String observaciones = cliIO.nextLine("Ingrese observaciones adicionales: ");
-        gp.registerHistorial(pacienteSeleccionado, peso, altura, presionArterial, temperatura, fechaIngreso, observaciones);
+        gp.registerHistorial(pacienteSeleccionado, peso, altura, presionArterialSis, presionArterialDia, temperatura, fechaIngreso, observaciones);
         gpC.update(filename, gp);
     }
 

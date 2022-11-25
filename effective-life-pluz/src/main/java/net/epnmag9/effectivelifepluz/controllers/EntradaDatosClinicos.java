@@ -6,7 +6,8 @@ import java.util.Date;
 public class EntradaDatosClinicos implements Serializable{
     double peso;
     double altura;
-    double presionArterial;
+    double presionArterialSis;
+    double presionArterialDia;
     double temperatura;
     Date fechaIngreso;
     String observaciones;
@@ -14,14 +15,16 @@ public class EntradaDatosClinicos implements Serializable{
     public EntradaDatosClinicos(
         double peso,
         double altura,
-        double presionArterial,
+        double presionArterialSis,
+        double presionArterialDia,
         double temperatura,
         Date fechaIngreso,
         String observaciones
     ){
         this.peso = peso;
         this.altura = altura;
-        this.presionArterial = presionArterial;
+        this.presionArterialSis = presionArterialSis;
+        this.presionArterialDia = presionArterialDia;
         this.temperatura = temperatura;
         this.fechaIngreso = fechaIngreso;
         this.observaciones = observaciones;
@@ -29,7 +32,7 @@ public class EntradaDatosClinicos implements Serializable{
 
     @Override
     public String toString() {
-        return "EntradaDatosClinicos [peso=" + peso + ", altura=" + altura + ", presionArterial=" + presionArterial
+        return "EntradaDatosClinicos [peso=" + peso + ", altura=" + altura + ", presionArterialSis=" + presionArterialSis + ", presionArterialDia=" + presionArterialDia
                 + ", temperatura=" + temperatura + ", fechaIngreso=" + fechaIngreso + ", observaciones=" + observaciones
                 + "]";
     }

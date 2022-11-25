@@ -16,7 +16,8 @@ public class HistorialClinico implements Serializable{
     public EntradaDatosClinicos registerEntradaDatosClinicos(
         double peso,
         double altura,
-        double presionArterial,
+        double presionArterialSis,
+        double presionArterialDia,
         double temperatura,
         Date fechaIngreso,
         String observaciones
@@ -24,7 +25,8 @@ public class HistorialClinico implements Serializable{
         EntradaDatosClinicos newEntradaDatosClinicos = new EntradaDatosClinicos(
             peso,
             altura,
-            presionArterial,
+            presionArterialSis,
+            presionArterialDia,
             temperatura,
             fechaIngreso,
             observaciones
