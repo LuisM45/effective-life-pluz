@@ -57,6 +57,14 @@ public class HistorialClinicoTest {
         assertEquals(resultList.size(), 3);
     }
     
+    @Test
+    public void given_two_dates_when_normal_dates_then_ok() throws ParseException{
+        Date startDate = (new SimpleDateFormat("yyyyMMdd").parse("20010101"));
+        Date endDate = (new SimpleDateFormat("yyyyMMdd").parse("20020101"));
+        List<EntradaDatosClinicos> resultList = historialClinico.getEntradaInBetween(startDate , endDate);
+        assertEquals(resultList.size(), 2);
+    }
+    
     @BeforeClass
     public static void setUpClass() throws ParseException {
         historialClinico = new HistorialClinico();
