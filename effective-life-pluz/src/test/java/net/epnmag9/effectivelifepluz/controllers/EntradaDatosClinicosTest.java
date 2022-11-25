@@ -4,6 +4,7 @@
  */
 package net.epnmag9.effectivelifepluz.controllers;
 
+import java.lang.reflect.Array;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,11 +14,34 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import org.junit.function.ThrowingRunnable;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+@RunWith(Parameterized.class)
 public class EntradaDatosClinicosTest {
+    float sisPressure, diaPressure;
+    boolean isValid;
     
-    public EntradaDatosClinicosTest() {
+    
+    public EntradaDatosClinicosTest(float diaPressure, float sisPressure,boolean isValid) {
+        super();
+        this.sisPressure = sisPressure;
+        this.diaPressure = diaPressure;
+        this.isValid = isValid;
+    }
+    
+    @Parameterized.Parameters
+    public static Collection input() {
+        return Arrays.asList(new Object[][]{
+            {80,120,true},
+            {60,60,false},
+            {90,110,true},
+            {120,80,false}
+        });
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -30,6 +54,22 @@ public class EntradaDatosClinicosTest {
     public void given_constructor_when_negative_height_then_exception() throws ParseException{
         Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
         EntradaDatosClinicos edc = new EntradaDatosClinicos(100, -1, 120, 80, 37.5, d, "");
+    }
+    
+    @Test
+    public void given_pressure_when_inverted_pressure_then_exception() throws ParseException, Throwable{
+        Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
+        ThrowingRunnable r = ()->{
+            EntradaDatosClinicos edc = new EntradaDatosClinicos(100, 170, sisPressure, diaPressure, 37.5, d, "");
+        };
+        
+        if(isValid){
+            r.run();
+        }
+        else{
+            assertThrows("",IllegalArgumentException.class, r);
+        }
+        
     }
     
 
