@@ -16,25 +16,25 @@ public class GestorPaciente implements Serializable{
         Identificador identificador,
         String nombre,
         Date fechaNacimiento,
-        String tipoSangre,
+        TipoSanguineo tipoSanguineo,
         String sexo){
             Paciente paciente = searchPaciente(identificador);
             if(paciente!=null) return null;
-            return registerPaciente(identificador, nombre, fechaNacimiento, tipoSangre, sexo);
+            return registerPaciente(identificador, nombre, fechaNacimiento, tipoSanguineo, sexo);
     }
     
     public Paciente registerPaciente(
         Identificador identificador,
         String nombre,
         Date fechaNacimiento,
-        String tipoSangre,
+        TipoSanguineo tipoSanguineo,
         String sexo){
             
             Paciente newPaciente = new Paciente(
                 identificador,
                 nombre,
                 fechaNacimiento,
-                tipoSangre,
+                tipoSanguineo,
                 sexo
             );
             pacientes.put(identificador, newPaciente);

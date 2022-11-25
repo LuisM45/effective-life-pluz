@@ -7,6 +7,7 @@ import net.epnmag9.effectivelifepluz.controllers.EntradaDatosClinicos;
 import net.epnmag9.effectivelifepluz.controllers.Paciente;
 import net.epnmag9.effectivelifepluz.controllers.GestorPaciente;
 import net.epnmag9.effectivelifepluz.controllers.Identificador;
+import net.epnmag9.effectivelifepluz.controllers.TipoSanguineo;
 import net.epnmag9.effectivelifepluz.io.GestorPacienteCrud;
 import net.epnmag9.lib.NombresValidador;
 
@@ -41,9 +42,9 @@ public class MenuCLI {
                 }
             String nombre = cliIO.readNameUntilSuccess("Ingrese el nombre: ",null,"Ingrese el nombre completo: ");
             Date fechaNacimiento = cliIO.readDateUntilSuccess("Ingrese la fecha de nacimiento("+dateFormat+"): ", dateFormat, null, genericErrorMsg);
-            String tipoSangre = cliIO.nextLine("Ingrese el tipo de sangre: ");
+            TipoSanguineo tipoSanguineo = TipoSanguineo.fromString(cliIO.nextLine("Ingrese el tipo de sangre: "));
             String sexo = cliIO.nextLine("Ingrese el sexo: ");
-            Paciente newPaciente = gp.registerPacienteIfNotPresent(identificador, nombre, fechaNacimiento, tipoSangre, sexo);
+            Paciente newPaciente = gp.registerPacienteIfNotPresent(identificador, nombre, fechaNacimiento, tipoSanguineo, sexo);
             pacienteSeleccionado = newPaciente;
             entradasSeleccionadas = null;
             cliIO.getOut().println("Paciente registrado y seleccionado.\n");

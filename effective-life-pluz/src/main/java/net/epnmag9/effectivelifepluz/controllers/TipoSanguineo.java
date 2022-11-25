@@ -19,6 +19,7 @@ public enum TipoSanguineo {
     O_NEG;
     
     public static TipoSanguineo fromString(String string){
+        // TODO: Prototipo
         return valueOf(string);
     }
 }
