@@ -18,7 +18,8 @@ public class Paciente implements Serializable{
     Date fechaNacimiento,
     TipoSanguineo tipoSangre,
     String sexo){
-
+        if(tipoSanguineo==null) throw new IllegalArgumentException("El tipo sanguineo no puede ser null");
+        
         this.identificador = identificador;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
