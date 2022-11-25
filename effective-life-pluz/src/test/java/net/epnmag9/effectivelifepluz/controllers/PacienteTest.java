@@ -8,12 +8,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static net.epnmag9.effectivelifepluz.controllers.HistorialClinicoTest.historialClinico;
+import net.epnmag9.effectivelifepluz.ui.CLIInteractiveIOManager;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mockito;
 
 /**
  *
@@ -22,6 +24,14 @@ import static org.junit.Assert.*;
 public class PacienteTest {
     
     public PacienteTest() {
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void given_blood_type_when_not_valid_then_exception() throws ParseException {
+        CLIInteractiveIOManager cLIInteractiveIOManager = Mockito.mock(CLIInteractiveIOManager.class);
+        Mockito.when(cLIInteractiveIOManager.readBloodTypeUntilSuccess(null, null, null)).thenReturn(null);
+        Date startDate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
+        Paciente p = new Paciente(new Cedula("1234567897"), "Marcelo Monty Rojas Sasa", startDate, cLIInteractiveIOManager.readBloodTypeUntilSuccess(null, null, null), "H");
     }
     
     @BeforeClass

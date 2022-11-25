@@ -1,6 +1,8 @@
 package net.epnmag9.effectivelifepluz.controllers;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Paciente implements Serializable{
@@ -24,7 +26,6 @@ public class Paciente implements Serializable{
         this.sexo = sexo;
         this.historialClinico = new HistorialClinico();
     }
-
 
 
     @Override

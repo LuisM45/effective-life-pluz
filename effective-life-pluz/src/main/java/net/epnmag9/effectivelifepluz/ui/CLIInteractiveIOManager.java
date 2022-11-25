@@ -12,6 +12,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import net.epnmag9.effectivelifepluz.controllers.Identificador;
+import net.epnmag9.effectivelifepluz.controllers.TipoSanguineo;
 import net.epnmag9.lib.NombresValidador;
 
 public class CLIInteractiveIOManager {
@@ -64,6 +65,10 @@ public class CLIInteractiveIOManager {
         return readLineAndParseUntilSuccess(Integer::valueOf, beginMessage, successMessage, errorMessage);
     }
 
+    public TipoSanguineo readBloodTypeUntilSuccess(String beginMessage, String successMessage, String errorMessage){
+        return readLineAndParseUntilSuccess(TipoSanguineo::valueOf, beginMessage, successMessage, errorMessage);
+    }
+    
     public Date readDateUntilSuccess(String beginMessage, String format,String successMessage, String errorMessage){
         Function<String,Date> parseFunction = (s)->parseDate(s,format);
         return readLineAndParseUntilSuccess(parseFunction, beginMessage, successMessage, errorMessage);
