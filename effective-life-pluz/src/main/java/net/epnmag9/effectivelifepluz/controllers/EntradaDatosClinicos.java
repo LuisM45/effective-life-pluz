@@ -25,6 +25,10 @@ public class EntradaDatosClinicos implements Serializable{
         if(peso <= 0) throw new IllegalArgumentException("El peso no puede ser negativo ni igual a cero");
         if(altura <= 0) throw new IllegalArgumentException("La altura no puede ser negativa ni igual a cero");
 
+        // Validar presion
+        if(presionArterialSis <= presionArterialDia) throw new IllegalArgumentException("La presion sistólica no puede ser mayor a la diastólica");
+        
+        
         this.peso = peso;
         this.altura = altura;
         this.presionArterialSis = presionArterialSis;
