@@ -27,26 +27,25 @@ public class EntradaDatosClinicosTest {
     boolean isValid;
     
     
-    public EntradaDatosClinicosTest(float diaPressure, float sisPressure,boolean isValid) {
+    public EntradaDatosClinicosTest(float diaPressure, float sisPressure) {
         super();
         this.sisPressure = sisPressure;
         this.diaPressure = diaPressure;
-        this.isValid = isValid;
     }
     
     @Parameterized.Parameters
-    public static Collection input() {
+    public static Collection inputNotReversed() {
         return Arrays.asList(new Object[][]{
-            {80,120,true},
-            {60,60,false},
-            {90,110,true},
-            {120,80,false},
-            {-80,120,false},
-            {-100,-60,false},
-            {-90,110,false},
-            {120,-80,false}
+            {60,60},
+            {120,80},
+            {-80,120},
+            {-100,-60},
+            {-90,110},
+            {120,-80}
         });
     }
+    
+
     
     @Test(expected = IllegalArgumentException.class)
     public void given_constructor_when_negative_weight_then_exception() throws ParseException{
@@ -76,10 +75,19 @@ public class EntradaDatosClinicosTest {
         
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void given_pressure_when_negative_pressure_then_exception() throws ParseException, Throwable{        
         Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
-        EntradaDatosClinicos edc = new EntradaDatosClinicos(100, 170, sisPressure, diaPressure, 37.5, d, "");
+        ThrowingRunnable r = ()->{
+            EntradaDatosClinicos edc = new EntradaDatosClinicos(100, 170, sisPressure, diaPressure, 37.5, d, "");
+        };
+        
+        if(isValid){
+            r.run();
+        }
+        else{
+            assertThrows("",IllegalArgumentException.class, r);
+        }
     }
                 
     
@@ -101,3 +109,4 @@ public class EntradaDatosClinicosTest {
     }
     
 }
+
