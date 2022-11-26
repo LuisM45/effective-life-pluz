@@ -64,8 +64,8 @@ public class HistorialClinicoTest {
     @BeforeClass
     public static void setUpClass() throws ParseException {
         historialClinico = new HistorialClinico();
-        startDate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
-        endDate  = (new SimpleDateFormat("yyyyMMdd").parse("20000102"));
+        startDate = (new SimpleDateFormat("yyyyMMdd").parse("20010101"));
+        endDate  = (new SimpleDateFormat("yyyyMMdd").parse("20020101"));
         SimpleDateFormat dateParser = new SimpleDateFormat("yyyyMMdd");
         historialClinico.registerEntradaDatosClinicos(1, 1, 2, 1, 37, dateParser.parse("20000101"), "");
         historialClinico.registerEntradaDatosClinicos(1, 1, 2, 1, 37, dateParser.parse("20010101"), "");

@@ -25,12 +25,13 @@ import org.junit.runners.Parameterized;
 public class EntradaDatosClinicosTest {
     float sisPressure, diaPressure;
     boolean isValid;
-    
+    static Date d = null;
     
     public EntradaDatosClinicosTest(float diaPressure, float sisPressure) {
         super();
         this.sisPressure = sisPressure;
         this.diaPressure = diaPressure;
+        
     }
     
     @Parameterized.Parameters
@@ -49,19 +50,16 @@ public class EntradaDatosClinicosTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void given_constructor_when_negative_weight_then_exception() throws ParseException{
-        Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
         EntradaDatosClinicos edc = new EntradaDatosClinicos(-200, 170, 120, 80, 37.5, d, "");
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void given_constructor_when_negative_height_then_exception() throws ParseException{
-        Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
         EntradaDatosClinicos edc = new EntradaDatosClinicos(100, -1, 120, 80, 37.5, d, "");
     }
     
     @Test
     public void given_pressure_when_inverted_pressure_then_exception() throws ParseException, Throwable{
-        Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
         ThrowingRunnable r = ()->{
             EntradaDatosClinicos edc = new EntradaDatosClinicos(100, 170, sisPressure, diaPressure, 37.5, d, "");
         };
@@ -77,7 +75,6 @@ public class EntradaDatosClinicosTest {
     
     @Test()
     public void given_pressure_when_negative_pressure_then_exception() throws ParseException, Throwable{        
-        Date d = new SimpleDateFormat("yyyyMMdd").parse("20000222");
         ThrowingRunnable r = ()->{
             EntradaDatosClinicos edc = new EntradaDatosClinicos(100, 170, sisPressure, diaPressure, 37.5, d, "");
         };
@@ -93,7 +90,8 @@ public class EntradaDatosClinicosTest {
     
 
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws ParseException {
+        Date d =(new SimpleDateFormat("yyyyMMdd").parse("20000222"));
     }
     
     @AfterClass
@@ -102,6 +100,7 @@ public class EntradaDatosClinicosTest {
     
     @Before
     public void setUp() {
+        
     }
     
     @After
