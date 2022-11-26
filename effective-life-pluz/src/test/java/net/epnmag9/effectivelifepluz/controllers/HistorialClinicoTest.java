@@ -23,13 +23,13 @@ import static org.junit.Assert.*;
  */
 public class HistorialClinicoTest {
     static HistorialClinico historialClinico = null;
+    static Date startDate = null;
+    static Date endDate = null;
     public HistorialClinicoTest() {
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void given_two_dates_when_endDate_before_startDate_then_exception() throws ParseException {
-        Date startDate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
-        Date endDate = (new SimpleDateFormat("yyyyMMdd").parse("20000102"));
         historialClinico.getEntradaInBetween(endDate,startDate);
     }
     
@@ -45,22 +45,18 @@ public class HistorialClinicoTest {
     
     @Test
     public void given_startDate_when_accurate_list_then_ok() throws ParseException{
-        Date startDate = (new SimpleDateFormat("yyyyMMdd").parse("20010101"));
         List<EntradaDatosClinicos> resultList = historialClinico.getEntradaInBetween(startDate, null);
         assertEquals(resultList.size(), 3);
     }
     
     @Test
     public void given_endDate_when_accurate_list_then_ok() throws ParseException{
-        Date endDate = (new SimpleDateFormat("yyyyMMdd").parse("20020101"));
         List<EntradaDatosClinicos> resultList = historialClinico.getEntradaInBetween(null , endDate);
         assertEquals(resultList.size(), 3);
     }
     
     @Test
     public void given_two_dates_when_normal_dates_then_ok() throws ParseException{
-        Date startDate = (new SimpleDateFormat("yyyyMMdd").parse("20010101"));
-        Date endDate = (new SimpleDateFormat("yyyyMMdd").parse("20020101"));
         List<EntradaDatosClinicos> resultList = historialClinico.getEntradaInBetween(startDate , endDate);
         assertEquals(resultList.size(), 2);
     }
@@ -68,6 +64,8 @@ public class HistorialClinicoTest {
     @BeforeClass
     public static void setUpClass() throws ParseException {
         historialClinico = new HistorialClinico();
+        startDate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
+        endDate  = (new SimpleDateFormat("yyyyMMdd").parse("20000102"));
         SimpleDateFormat dateParser = new SimpleDateFormat("yyyyMMdd");
         historialClinico.registerEntradaDatosClinicos(1, 1, 2, 1, 37, dateParser.parse("20000101"), "");
         historialClinico.registerEntradaDatosClinicos(1, 1, 2, 1, 37, dateParser.parse("20010101"), "");

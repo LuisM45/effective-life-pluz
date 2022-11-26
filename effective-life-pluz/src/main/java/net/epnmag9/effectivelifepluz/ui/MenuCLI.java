@@ -14,13 +14,16 @@ import net.epnmag9.lib.NombresValidador;
 public class MenuCLI {
     private static String filename = "gestorData.dump";
     private static String basePath = ".";
+    private static String fechaInicio = "";
+   private static String fechaFin = "";
+    
     private static String dateFormat = "yyyy-MM-dd";
     private static String genericErrorMsg = "Intente de nuevo: ";
     private static Scanner scn = new Scanner(System.in);
     private static GestorPacienteCrud gpC = new GestorPacienteCrud(basePath);
     private static GestorPaciente gp = gpC.read(filename);
     private static CLIInteractiveIOManager cliIO = new CLIInteractiveIOManager(System.in, System.out);
-
+    
     private static Paciente pacienteSeleccionado;
     private static List<EntradaDatosClinicos> entradasSeleccionadas;
 
@@ -50,6 +53,7 @@ public class MenuCLI {
             cliIO.getOut().println("Paciente registrado y seleccionado.\n");
             gpC.update(filename, gp);
         }
+        
 
     public static void seleccionarPaciente(){
         cliIO.getOut().print("Ingrese el identificador del paciente: ");
@@ -73,10 +77,11 @@ public class MenuCLI {
             return;
             }
         }
-        Date fechaInicio = cliIO.readDateUntilSuccess("Ingrese la fecha desde cual seleccionar ("+dateFormat+"):", dateFormat, null, genericErrorMsg);
-        Date fechaFin = cliIO.readDateUntilSuccess("Ingrese la fecha hasta cual seleccionar ("+dateFormat+"):", dateFormat, null, genericErrorMsg);
-        entradasSeleccionadas = pacienteSeleccionado.getHistorialClinico().getEntradaInBetween(fechaInicio, fechaFin);
-    }
+    
+         Date fechaInicio = cliIO.readDateUntilSuccess("Ingrese la fecha desde cual seleccionar ("+dateFormat+"):", dateFormat, null, genericErrorMsg);
+         Date fechaFin = cliIO.readDateUntilSuccess("Ingrese la fecha hasta cual seleccionar ("+dateFormat+"):", dateFormat, null, genericErrorMsg);
+         entradasSeleccionadas = pacienteSeleccionado.getHistorialClinico().getEntradaInBetween(fechaInicio, fechaFin);
+     }
 
     public static void registrarEntrada(){
         if(pacienteSeleccionado==null){
