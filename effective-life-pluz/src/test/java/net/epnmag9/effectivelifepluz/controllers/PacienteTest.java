@@ -22,29 +22,34 @@ import org.mockito.Mockito;
  * @author luism
  */
 public class PacienteTest {
-    
+    Date birthdate = null;
+    static CLIInteractiveIOManager cLII = null;
     public PacienteTest() {
+        
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void given_blood_type_when_not_valid_then_exception() throws ParseException {
-        CLIInteractiveIOManager cLIInteractiveIOManager = Mockito.mock(CLIInteractiveIOManager.class);
-        Mockito.when(cLIInteractiveIOManager.readBloodTypeUntilSuccess(null, null, null)).thenReturn(null);
         Date birthdate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
-        Paciente p = new Paciente(new Cedula("1234567897"), "Marcelo Monty Rojas Sasa", birthdate, cLIInteractiveIOManager.readBloodTypeUntilSuccess(null, null, null), "H");
+        Paciente p = new Paciente(new Cedula("1234567897"), "Marcelo Monty Rojas Sasa", birthdate, cLII.readBloodTypeUntilSuccess(null, null, null), "H");
+
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void given_identifier_when_not_valid_then_exception() throws ParseException {
-        CLIInteractiveIOManager cLIInteractiveIOManager = Mockito.mock(CLIInteractiveIOManager.class);
-        Mockito.when(cLIInteractiveIOManager.readIdentificadorUntilSuccess()).thenReturn(null);
         Date birthdate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
-        Paciente p = new Paciente(cLIInteractiveIOManager.readIdentificadorUntilSuccess(), "Marcelo Monty Rojas Sasa", birthdate, TipoSanguineo.AB_NEG, "H");
+        Paciente p = new Paciente(cLII.readIdentificadorUntilSuccess(), "Marcelo Monty Rojas Sasa", birthdate, TipoSanguineo.AB_NEG, "H");
     }
     
     @BeforeClass
-    public static void setUpClass() {
-    }
+    public static void setUpClass() throws ParseException {
+        
+        //birthdate = (new SimpleDateFormat("yyyyMMdd").parse("20000101"));
+        
+        cLII = Mockito.mock(CLIInteractiveIOManager.class);
+        Mockito.when(cLII.readBloodTypeUntilSuccess(null, null, null)).thenReturn(null);
+        Mockito.when(cLII.readIdentificadorUntilSuccess()).thenReturn(null);
+    }   
     
     @AfterClass
     public static void tearDownClass() {
